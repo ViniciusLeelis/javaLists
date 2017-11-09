@@ -5,6 +5,8 @@
  */
 package br.fatec.lista10.exercicio3;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,23 +16,50 @@ import javax.swing.JOptionPane;
 public class Main {
     private String[] alfabeto = {"A" ,"B" , "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
             ,"U", "V", "W", "X", "Y", "Z"};
+    private int temp;
+    private String inicialEspaco = "                               ";
     private String letra;
+    private String finals;
         public static void main(String[] args) {
           new Main();
         }
         
         Main(){
-            letra = JOptionPane.showInputDialog(null, "Digite uma letra");
-            if(letra.length() > 2)
-                letra = JOptionPane.showInputDialog(null, "Digite apelas uma letra");
-            else
-                desenhar(letra);
+            while(letra.length() != 1) {
+            letra = JOptionPane.showInputDialog(null, "Digite apenas UMA letra");
+            desenhar(letra);
+        }}
+            
+        
+        public void darEspaco(int quantidade) {
+            
         }
         public void desenhar(String string){
-            for(int i = 0; i<=alfabeto.length; i++) {
-                if(!alfabeto[i].equalsIgnoreCase(string)) {
-                    System.out.println(alfabeto[i]);
+
+            String remover;
+            String up = string.toUpperCase();
+            for(int i=0; !alfabeto[i].equals(up);i++){  
+                   char[] espaco = new char[i+i];
+                   char esp = ' ';
+                   Arrays.fill(espaco, esp);
+                   String printEspaco = new String(espaco);
+                   remover = inicialEspaco.substring (0, inicialEspaco.length() - i);
+                   finals = finals + "\n" + remover + alfabeto[i] + printEspaco + alfabeto[i];
+                   temp = i;      
+                   System.out.println(finals);
                 }
+
+
+            for(int x= temp; x>=0; x--) {
+                   char[] espaco = new char[x+x];
+
+                   char esp = ' ';
+                   Arrays.fill(espaco, esp);
+                   String printEspaco = new String(espaco);  
+                   remover = inicialEspaco.substring (0, inicialEspaco.length() - x);                   
+                   System.out.println(remover + alfabeto[x] + printEspaco + alfabeto[x]);
+            }
+            
             }
         }
-}
+
