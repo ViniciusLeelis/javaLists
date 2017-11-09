@@ -22,6 +22,7 @@ public class Main {
     private String inicialEspaco = "                              ";
     private String letra;
     private String finals;
+    
         public static void main(String[] args) {
           new Main();
         }
@@ -35,7 +36,7 @@ public class Main {
         }
         
         public void darEspaco(int quantidade) {
-            
+             
         }
         public void desenhar(String string){
             String remover;
