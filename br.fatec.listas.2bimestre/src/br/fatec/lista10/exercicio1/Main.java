@@ -5,11 +5,13 @@
  */
 package br.fatec.lista10.exercicio1;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Vinicius Lelis
  */
-public class Main {
+public class Main extends JFrame{
     String ola;
     Contatos contatos;
     public static void main(String[] args) {
@@ -17,7 +19,11 @@ public class Main {
     }
 
     public Main()   { 
-        
+        setTitle("Simple example");
+        setSize(300, 200);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
         
     }
 }
