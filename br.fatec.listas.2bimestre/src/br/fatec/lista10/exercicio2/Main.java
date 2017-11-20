@@ -27,9 +27,10 @@ public class Main {
                 int result = JOptionPane.showConfirmDialog(null, "Deseja verificar mais um texto?", "Pergunta", OK_OPTION);
                     if(result== OK_OPTION)
                         opcao = false;
-                    else
+                    else {
                         opcao = true;
-                }
+                        JOptionPane.showMessageDialog(null, "Tenha um ótimo dia ! ! :)");
+                } }
         }
         
         public void contar(String texto) {
@@ -46,6 +47,7 @@ public class Main {
                }
             }
             JOptionPane.showMessageDialog(null,"Quantidade de buracos:" + Quantidade);
+            Quantidade = 0;
         }
             
             

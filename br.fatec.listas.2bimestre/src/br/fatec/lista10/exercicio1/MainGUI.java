@@ -170,7 +170,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_addContactActionPerformed
 
     private void abrirAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirAgendaActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_abrirAgendaActionPerformed
 
     private void alterarContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarContactActionPerformed

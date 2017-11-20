@@ -30,7 +30,7 @@ public class Main {
         Main(){
             letra = JOptionPane.showInputDialog(null, "Digite uma letra");
             if(letra.length() != 1)
-                letra = JOptionPane.showInputDialog(null, "Digite apelas uma letra");
+                letra = JOptionPane.showInputDialog(null, "Digite apenas uma letra");
             else
                 desenhar(letra);
         }
@@ -43,6 +43,7 @@ public class Main {
             String up = string.toUpperCase();
             String printEspaco;
             for(int i=0; !alfabeto[i].equals(up);i++){  
+                   
                    char[] espaco = new char[i*2];
                    char esp = ' ';
                    Arrays.fill(espaco, esp);
