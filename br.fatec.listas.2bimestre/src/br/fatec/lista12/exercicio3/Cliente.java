@@ -31,7 +31,7 @@ public class Cliente {
                         int port = Integer.parseInt(porta);
                         String ip = JOptionPane.showInputDialog(null, "Digite o ip");
                        
-			System.out.println("Conectando com Servidor porta 123456");
+			System.out.println("Conectando com Servidor porta " + port);
 			sockServer = new Socket(ip , port);
 			is = sockServer.getInputStream();
 

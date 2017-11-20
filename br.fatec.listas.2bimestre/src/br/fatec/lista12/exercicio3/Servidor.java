@@ -11,11 +11,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import javax.swing.JOptionPane;
 
-/**@author Lucas iorio - http://www.byiorio.com
- * 
- * @author Lucas iorio - http://www.byiorio.com
- *
- */
+
 public class Servidor {
 	public static void main(String[] args) {
 

@@ -97,7 +97,7 @@ public class Main extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        //AÇÕES DE BUTÕES
+        //AÇÕES DOS BOTÕES
 
         bGravar.addActionListener(new ActionListener() {
 
@@ -107,19 +107,28 @@ public class Main extends JFrame {
                     Pessoa pessoa = new Pessoa(tNome.getText(), tEndereco.getText(), tTelefone.getText(), tEmail.getText(), tRG.getText());
                     contatos.addPessoa(pessoa);
                     modelo.addElement(pessoa.toStr());
-                    cleanCamps();
+                    cleanCamp(tNome); cleanCamp(tEndereco) ; cleanCamp(tTelefone); cleanCamp(tEmail); cleanCamp(tRG);
+                }
+
+        });
+        bDeletar.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    for(int i = 0; i<=contatos.contatos.size(); i++) {
+                        if(contatos.contatos.get(i).toStr().equals(modelo.get(i)))
+                            modelo.removeElement(i);
+                            contatos.contatos.remove(i);
+                    }
+                    cleanCamp(tNome); cleanCamp(tEndereco) ; cleanCamp(tTelefone); cleanCamp(tEmail); cleanCamp(tRG);
                 }
 
         });
 
 
     }
-    public void cleanCamps(){
-        tNome.setText("");
-        tEndereco.setText("");
-        tTelefone.setText("");
-        tEmail.setText("");
-        tRG.setText("");
+    public void cleanCamp(JTextField camp){
+        camp.setText("");
     }
     
     public void addEventoGUI(){
