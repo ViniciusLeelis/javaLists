@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,10 +21,10 @@ import javax.swing.JOptionPane;
  * @author Vinicius Lelis
  */
 public class Salvar extends Thread implements Serializable{
-    private ArrayList agenda;
+    private HashSet agenda;
     Salvar(){
     }
-    public void setSalvar(ArrayList salvar){
+    public void setSalvar(HashSet salvar){
         this.agenda = salvar;
     }
 

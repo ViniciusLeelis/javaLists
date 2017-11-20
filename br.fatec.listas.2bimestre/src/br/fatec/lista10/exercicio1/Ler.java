@@ -6,13 +6,12 @@
 package br.fatec.lista10.exercicio1;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.logging.Level;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
@@ -21,10 +20,10 @@ import javax.swing.JOptionPane;
  * @author Vinicius Lelis
  */
 public class Ler extends Thread implements Serializable {
-    private ArrayList contatos;
+    private HashSet contatos;
     Ler(){
     }
-    public ArrayList getContatos(){
+    public HashSet getContatos(){
         return contatos;
     }
     
@@ -37,7 +36,7 @@ public class Ler extends Thread implements Serializable {
 
 		   ObjectInputStream ois = new ObjectInputStream(fin);
 		 
-		   contatos = (ArrayList) ois.readObject();
+		   contatos = (HashSet) ois.readObject();
 		   ois.close();
 
  
