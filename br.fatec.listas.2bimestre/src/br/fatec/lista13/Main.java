@@ -225,7 +225,7 @@ public class Main extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String pesquisa = JOptionPane.showInputDialog(null, "Digite o RG do contato");
                 for(Pessoa p: contatos.contatos) {
-                    if(p.getNome().equals(pesquisa)){
+                    if(p.getRG().equals(pesquisa)){
                         String nome = JOptionPane.showInputDialog(null, "Digite o novo nome: ");
                         p.setNome(nome);
                         String endereco = JOptionPane.showInputDialog(null, "Digite o novo endereco: ");
@@ -234,13 +234,14 @@ public class Main extends JFrame {
                         p.setTelefone(telefone);
                         String email = JOptionPane.showInputDialog(null, "Digite o novo email: "); 
                         p.setEmail(email);
+                        cleanCamp(tNome); cleanCamp(tEndereco) ; cleanCamp(tTelefone); cleanCamp(tEmail); cleanCamp(tRG);
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "nenhum usuário encontrado");
                     }
                 }
                     
-                    Pessoa pessoa = new Pessoa(tNome.getText(), tEndereco.getText(), tTelefone.getText(), tEmail.getText(), tRG.getText());
-                    contatos.addPessoa(pessoa);
-                    modeloContatos.addElement(pessoa.toString());
-                    cleanCamp(tNome); cleanCamp(tEndereco) ; cleanCamp(tTelefone); cleanCamp(tEmail); cleanCamp(tRG);
+
                 }
 
         });
@@ -249,8 +250,9 @@ public class Main extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                    String rg = JOptionPane.showInputDialog("Digite o RG");
                     for(Pessoa pessoa: contatos.contatos) {
-                        if(tRG.equals(pessoa.getRG())) {
+                        if(rg.equals(pessoa.getRG())) {
                             JOptionPane.showMessageDialog(null, "Contato: " + pessoa.getNome() + " removido !");
                             contatos.contatos.remove(pessoa);
                         }
@@ -270,7 +272,7 @@ public class Main extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                     
-                    Evento evento = new Evento(eventoNome.getText(), eventoDescricao.getText(), eventoEndereco.getText());
+                    Evento evento = new Evento(eventoNome.getText(), eventoDescricao.getText(), eventoEndereco.getText(), (contatos.contatos.size() + 1));
 
                     try {
                         evento.toData(eventoData.getText());
@@ -283,6 +285,53 @@ public class Main extends JFrame {
                 }
 
 
+                }
+
+        });
+        
+        eventoAlterar.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String pesquisa = JOptionPane.showInputDialog(null, "Digite o ID do evento:");
+                
+                for(Evento e: agenda.eventos) {
+                    if(e.getId().equals(pesquisa)){
+                        String nome = JOptionPane.showInputDialog(null, "Digite o novo nome: ");
+                        e.setNome(nome);
+                        String endereco = JOptionPane.showInputDialog(null, "Digite a nova Descrição: ");
+                        e.setDescricao(endereco);
+                        String telefone = JOptionPane.showInputDialog(null, "Digite o novo telefone: ");
+                        e.setEndereco(telefone);
+                        String email = JOptionPane.showInputDialog(null, "Digite o novo email: "); 
+
+                        cleanCamp(tNome); cleanCamp(tEndereco) ; cleanCamp(tTelefone); cleanCamp(tEmail); cleanCamp(tRG);
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "nenhum usuário encontrado");
+                    }
+                }
+                    
+
+                }
+
+        });
+        
+        bDeletar.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    String rg = JOptionPane.showInputDialog("Digite o ID");
+                    for(Pessoa pessoa: contatos.contatos) {
+                        if(rg.equals(pessoa.getRG())) {
+                            JOptionPane.showMessageDialog(null, "Contato: " + pessoa.getNome() + " removido !");
+                            contatos.contatos.remove(pessoa);
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null, "RG não encontrado");
+                            
+                    }}
+                    
                 }
 
         });

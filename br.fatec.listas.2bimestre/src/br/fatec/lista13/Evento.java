@@ -19,17 +19,27 @@ public class Evento {
     private String nome;
     private Date data;
     private String descricao;
+    private String id;
 
     private String endereco;
-    Evento(String nome,String descricao, String endereco){
+    Evento(String nome,String descricao, String endereco, String id){
         this.nome = nome;
         this.descricao = descricao;
         this.endereco = endereco;
+        this.id = id;
     }
 
     
     public void setEndereco(String endereco){
         this.endereco = endereco;
+    }
+    
+    public void setId(String id){
+        this.id = id;
+    }
+    
+    public String getId(){
+        return id;
     }
     
     public String getEndereco() {
