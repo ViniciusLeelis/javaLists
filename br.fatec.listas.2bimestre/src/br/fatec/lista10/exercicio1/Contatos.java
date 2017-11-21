@@ -20,13 +20,20 @@ import javax.swing.JOptionPane;
 public class Contatos<T> implements Serializable {
     Salvar salvar;
     Ler ler;
-    private HashSet<Pessoa> contatos = new HashSet<>();  // Professor, eu não entendi o uso do Array<T>
-                                                        // então resolvi implementar outra coisa pra treinar
+    private List<T> contatos;
+    private int currentPosition;
+    private int collectionSize;
+    // gets e sets omitidos.
 
+    public Contatos(List<T> contatos) {
+        this.contatos = contatos;
+        this.collectionSize = contatos.size();
+        this.currentPosition = 0;
+    }
     public Contatos() { 
     }
-    public void addPessoa(Pessoa pessoa){
-        contatos.add(pessoa);
+    public void addPessoa(Object objeto){
+        contatos.add((T) objeto);
     }
     public void excluirPessoa(Pessoa pessoa){
 
@@ -35,7 +42,7 @@ public class Contatos<T> implements Serializable {
     public void salvarContatos(){
         salvar.setSalvar(contatos);
     }
-    public HashSet getContatos(){
+    public Object getContatos(){
         return ler.getContatos();
 }
 

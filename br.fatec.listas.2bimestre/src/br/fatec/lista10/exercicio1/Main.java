@@ -52,9 +52,7 @@ public class Main {
     }
     private void mostrarContatos(){
         String total = "";
-        for(int i = 0; i<=contatos.getContatos().size(); i++) {
-            
-        }
+
     }
     private void excluirContato() {
       

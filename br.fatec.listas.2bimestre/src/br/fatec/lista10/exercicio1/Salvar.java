@@ -21,10 +21,10 @@ import javax.swing.JOptionPane;
  * @author Vinicius Lelis
  */
 public class Salvar extends Thread implements Serializable{
-    private HashSet agenda;
+    private Object agenda;
     Salvar(){
     }
-    public void setSalvar(HashSet salvar){
+    public void setSalvar(Object salvar){
         this.agenda = salvar;
     }
 

@@ -19,11 +19,11 @@ import javax.swing.JOptionPane;
  *
  * @author Vinicius Lelis
  */
-public class Ler extends Thread implements Serializable {
-    private HashSet contatos;
+public class Ler<t> extends Thread implements Serializable {
+    private  Object contatos;
     Ler(){
     }
-    public HashSet getContatos(){
+    public Object getContatos(){
         return contatos;
     }
     
@@ -36,7 +36,7 @@ public class Ler extends Thread implements Serializable {
 
 		   ObjectInputStream ois = new ObjectInputStream(fin);
 		 
-		   contatos = (HashSet) ois.readObject();
+		   contatos = ois.readObject();
 		   ois.close();
 
  

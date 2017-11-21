@@ -27,4 +27,12 @@ public class Agenda {
             }
         }        
     }
+    @Override
+    public String toString() {
+        String finals = "";
+        for(Evento evento: eventos){
+            finals += "Nome: " + evento.getNome() + " Data: " + evento.getData() + "\n";
+        }
+        return finals + "\n";
+    }
 }

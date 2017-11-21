@@ -19,7 +19,7 @@ public class Contatos {
         contatos = new ArrayList<>();
     }
     public void addPessoa(Pessoa pessoa) {
-        contatos.add(pessoa);
+        contatos.add(contatos.size() + 1, pessoa);
     }
     public void removePessoa(String RG){
         for(Pessoa p:contatos){
@@ -28,6 +28,8 @@ public class Contatos {
             }
         }        
     }
-}
+
+    }
+
 
 

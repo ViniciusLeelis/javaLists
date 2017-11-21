@@ -5,7 +5,11 @@
  */
 package br.fatec.lista13;
 
-import javafx.scene.chart.PieChart.Data;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,20 +17,23 @@ import javafx.scene.chart.PieChart.Data;
  */
 public class Evento {
     private String nome;
-    private Data data;
+    private Date data;
     private String descricao;
-    private Pessoa pessoa;
-    Evento(String nome, Data data, String descricao, Pessoa pessoa){
+
+    private String endereco;
+    Evento(String nome,String descricao, String endereco){
         this.nome = nome;
-        this.data = data;
         this.descricao = descricao;
-        this.pessoa = pessoa;
+        this.endereco = endereco;
     }
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
+
+    
+    public void setEndereco(String endereco){
+        this.endereco = endereco;
     }
-    public Pessoa getPessoa() {
-        return pessoa;
+    
+    public String getEndereco() {
+        return endereco;
     }
     
     public void setNome(String nome) {
@@ -38,11 +45,11 @@ public class Evento {
         return nome;
     }
     
-    public void setData(Data data) {
+    public void setData(Date data) {
         this.data = data;
     }
     
-    public Data getData(){
+    public Date getData(){
         return data;
     }
     
@@ -51,5 +58,17 @@ public class Evento {
     }
     public String getDescricao() {
         return descricao;
+    }
+    public void toData(String data) throws Exception { 
+        
+            Date date = null;
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            date = (java.util.Date)formatter.parse(data);
+            this.data = date;
+	}
+    
+    @Override
+    public String toString(){
+        return "Evento: " + nome + " Data: " + data + "\n";
     }
 }

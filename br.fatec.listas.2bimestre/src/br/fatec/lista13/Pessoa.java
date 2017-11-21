@@ -56,7 +56,10 @@ public class Pessoa {
     public String getEmail(){
         return email;
     }
-    public String toStr(){
-        return "Nome: " + nome + " Endereço: " + endereco + " Telefone: " + telefone;
+    
+    @Override
+    public String toString(){
+        return nome + "  | " + endereco;
     }
+    
 }
