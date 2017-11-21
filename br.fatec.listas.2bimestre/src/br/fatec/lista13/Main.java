@@ -223,7 +223,19 @@ public class Main extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                String pesquisa = JOptionPane.showInputDialog(null, "Digite o RG do contato");
+                for(Pessoa p: contatos.contatos) {
+                    if(p.getNome().equals(pesquisa)){
+                        String nome = JOptionPane.showInputDialog(null, "Digite o novo nome: ");
+                        p.setNome(nome);
+                        String endereco = JOptionPane.showInputDialog(null, "Digite o novo endereco: ");
+                        p.setEndereco(endereco);
+                        String telefone = JOptionPane.showInputDialog(null, "Digite o novo telefone: ");
+                        p.setTelefone(telefone);
+                        String email = JOptionPane.showInputDialog(null, "Digite o novo email: "); 
+                        p.setEmail(email);
+                    }
+                }
                     
                     Pessoa pessoa = new Pessoa(tNome.getText(), tEndereco.getText(), tTelefone.getText(), tEmail.getText(), tRG.getText());
                     contatos.addPessoa(pessoa);
@@ -238,13 +250,14 @@ public class Main extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                     for(Pessoa pessoa: contatos.contatos) {
-                        if(tRG.equals(pessoa.getRG()))
+                        if(tRG.equals(pessoa.getRG())) {
+                            JOptionPane.showMessageDialog(null, "Contato: " + pessoa.getNome() + " removido !");
                             contatos.contatos.remove(pessoa);
-                            
-                        else
+                        }
+                        else {
                             JOptionPane.showMessageDialog(null, "RG não encontrado");
                             
-                    }
+                    }}
                     
                 }
 
