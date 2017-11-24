@@ -34,10 +34,37 @@ public class Main {
           new Main();
     }
         Main() {
-            String vetor = JOptionPane.showInputDialog(null, "Digite o vetor desejado, separando por uma vírgula");
+            /*String vetor = JOptionPane.showInputDialog(null, "Digite o vetor desejado, separando por uma vírgula");
             for(String letra:vetor.split(",")){
                 inteiros.add(letra);
             }
-            
+            int valorDoMeio = (int) inteiros.get((inteiros.size()/2)+1); */
+                    int notas[] = {15,63,23,99,58,52,98};
+
+        /*****************************************************
+         *            ENCONTRANDO O VALOR DO MEIO 
+         *****************************************************/
+
+        int valorDoMeio = notas[(notas.length/2)+1]; //O mais um é por que ele vai arredondar pra baixo;
+
+
+
+        /*****************************************************
+         *            ENCONTRANDO O VALOR MEDIANO 
+         *****************************************************/
+
+        // O ideal é iniciar os contadores com o primeiro valor, aí vamos modificando de acordo com a necessidade
+        int menor = notas[0];
+        int maior = notas[0];
+
+
+        for(int i =0; i < notas.length; i++){
+            if(notas[i] < menor)
+                menor = notas[i];
+
+            if(notas[i] > maior)
+                maior = notas[i];
+        }
+        int valorMediano = (maior + menor) /2;
         }
 }
