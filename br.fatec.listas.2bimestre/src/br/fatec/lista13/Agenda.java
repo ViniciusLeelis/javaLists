@@ -5,13 +5,14 @@
  */
 package br.fatec.lista13;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Admin
  */
-public class Agenda {
+public class Agenda implements Serializable {
     public ArrayList<Evento> eventos;
     
     Agenda() {

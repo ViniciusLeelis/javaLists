@@ -7,12 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.ListIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
+
+  
 
 public class Main extends JFrame {
 
@@ -53,7 +53,7 @@ public class Main extends JFrame {
     private JButton bAlterar = new JButton("Alterar");
     private JButton bLimpar = new JButton("Limpar");
     private JButton bSair = new JButton("Sair");
-    private JLabel lTitulo = new JLabel("Contatos e Eventos SIMPLES");
+    private JLabel lTitulo = new JLabel("Contatos");
     private JLabel lNome = new JLabel("Nome:");
     private JLabel lEndereco = new JLabel("Endereço:");
     private JLabel lEmail = new JLabel("Email:");
@@ -61,7 +61,12 @@ public class Main extends JFrame {
     private JLabel lRG = new JLabel("RG:");
     
     public Main() throws ParseException{
+              
         super ("Contatos e Eventos for Zombies");
+        
+        lerObjeto ler = new lerObjeto();
+        salvarObjeto salvar = new salvarObjeto();
+        
         eventoData = new JFormattedTextField(new MaskFormatter("##/##/####"));
         tTelefone = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
         tRG = new JFormattedTextField(new MaskFormatter("##.###.###-#"));
@@ -207,10 +212,40 @@ public class Main extends JFrame {
                     contatos.addPessoa(pessoa);
                     modeloContatos.addElement(pessoa.toString());
                     cleanCamp(tNome); cleanCamp(tEndereco) ; cleanCamp(tTelefone); cleanCamp(tEmail); cleanCamp(tRG);
+                try {
+                    salvar.salvar("C:\\Users\\Admin\\Desktop\\negona.negoa", contatos.contatos);
+                    contatos.contatos = null;
+                    contatos.contatos = (ArrayList<Pessoa>) ler.deserializar("C:\\Users\\Admin\\Desktop\\negona.negoa");
+                    
+                } catch (Exception ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 }
 
         });
+        
+        bGravar.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    
+                    Pessoa pessoa = new Pessoa(tNome.getText(), tEndereco.getText(), tTelefone.getText(), tEmail.getText(), tRG.getText());
+                    contatos.addPessoa(pessoa);
+                    cleanCamp(tNome); cleanCamp(tEndereco) ; cleanCamp(tTelefone); cleanCamp(tEmail); cleanCamp(tRG);
+                try {
+                    salvar.salvar("C:\\Users\\Admin\\Desktop\\negona.negoa", contatos.contatos);
+                    contatos.contatos = null;
+                    contatos.contatos = (ArrayList<Pessoa>) ler.deserializar("C:\\Users\\Admin\\Desktop\\negona.negoa");
+                    modeloContatos.removeAllElements();
+                    for(Pessoa p: contatos.contatos) {
+                       modeloContatos.addElement(p.toString());
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                }
+
+        });
         bAlterar.addActionListener(new ActionListener() {
 
             @Override
@@ -245,8 +280,15 @@ public class Main extends JFrame {
 	                        	p.setEmail(p.getEmail());
 	                        else
 	                        	p.setEmail(email);
-	                        modeloContatos.setElementAt(p.toString(), selected);
-	                        cleanCamp(tNome); cleanCamp(tEndereco) ; cleanCamp(tTelefone); cleanCamp(tEmail); cleanCamp(tRG);
+	                       
+                                try {
+                                    salvar.salvar("C:\\Users\\Admin\\Desktop\\negona.negoa", contatos.contatos);
+                                    modeloContatos.setElementAt(p.toString(), selected);
+                                    cleanCamp(tNome); cleanCamp(tEndereco) ; cleanCamp(tTelefone); cleanCamp(tEmail); cleanCamp(tRG);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+
 	                    }
                        
                     
@@ -257,6 +299,7 @@ public class Main extends JFrame {
             	}
 
         });
+        
         
         bDeletar.addActionListener(new ActionListener() {
 
@@ -357,7 +400,7 @@ public class Main extends JFrame {
 
         });
         
-        eventoDeletar.addActionListener(new ActionListener() {
+        eventoDeletar.addActionListener(new ActionListener() {   // Deleta um evento, ops2: Corrigir bug
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -386,7 +429,7 @@ public class Main extends JFrame {
     public void cleanCamp(JTextField camp){
         camp.setText("");
     }
-
+    
     public static void main (String args[]) throws ParseException{
         new Main();
     }

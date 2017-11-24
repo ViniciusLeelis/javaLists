@@ -5,6 +5,7 @@
  */
 package br.fatec.lista13;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
@@ -12,7 +13,7 @@ import javax.swing.DefaultListModel;
  *
  * @author Admin
  */
-public class Contatos {
+public class Contatos implements Serializable {
     ArrayList<Pessoa> contatos;
 
     Contatos(){

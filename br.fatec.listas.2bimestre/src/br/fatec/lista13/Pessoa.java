@@ -5,11 +5,13 @@
  */
 package br.fatec.lista13;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Admin
  */
-public class Pessoa {
+public class Pessoa implements Serializable {
     private String nome;
     private String endereco;
     private String telefone;
