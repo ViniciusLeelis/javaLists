@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -60,16 +61,36 @@ public class Main extends JFrame {
     private JLabel lTelefone = new JLabel("Telefone:");
     private JLabel lRG = new JLabel("RG:");
     
-    public Main() throws ParseException{
-              
+    public Main() throws ParseException, Exception{
         super ("Contatos e Eventos for Zombies");
         
         lerObjeto ler = new lerObjeto();
         salvarObjeto salvar = new salvarObjeto();
         
-        eventoData = new JFormattedTextField(new MaskFormatter("##/##/####"));
+        File contatosFile = new File("C:\\ZContatos\\contatos.zombies");
+        File eventosFile = new File("C:\\ZContatos\\eventos.zombies");
+        // Verifica se o arquivo existe, caso contrário, ele cria um novo
+        if(contatosFile.exists()){
+           if(eventosFile.exists()) {
+                    contatos.contatos = (ArrayList<Pessoa>) ler.deserializar("C:\\ZContatos\\contatos.zombies");
+                   agenda.eventos = (ArrayList<Evento>) ler.deserializar("C:\\ZContatos\\eventos.zombies");
+            }
+
+         else {
+            new File("C:\\ZContatos\\contatos.zombies");
+            new File("C:\\ZContatos\\eventos.zombies");
+        }
+        }
+       
+        //
+        
+        
+        //Formata os campos para a maneira correta
+        eventoData = new JFormattedTextField(new MaskFormatter("##/##/####"));  
         tTelefone = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
         tRG = new JFormattedTextField(new MaskFormatter("##.###.###-#"));
+        //
+        
         JPanel addContato = new JPanel(null);
         JPanel addEvento = new JPanel(null);
         JTabbedPane jTab = new JTabbedPane();
@@ -84,8 +105,15 @@ public class Main extends JFrame {
         JScrollPane scrollContatos = new JScrollPane(listaContatos);
         JScrollPane scrollEventos = new JScrollPane(listaEventos);
 
+        for(Pessoa v: contatos.contatos) {
+             modeloContatos.addElement(v.toString());          
+        } 
+        for(Evento x: agenda.eventos) {
+             modeloEventos.addElement(x.toString());          
+        } 
         
         lTitulo.setFont(new Font("Dialog", Font.PLAIN, 20));
+        
         // Aba de Adicionar Contato
         addContato.add(lTitulo);
         addContato.add(lNome);
@@ -132,6 +160,7 @@ public class Main extends JFrame {
         listaContatos.setModel(modeloContatos);
         
         //TAB CONTATOS
+        
         lTitulo.setBounds(140, 20, 200, 80);
         lTitulo.setForeground(Color.BLACK);
         lNome.setBounds(40, 130, 100, 25);
@@ -199,6 +228,7 @@ public class Main extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         
+        
 
 
         //AÇÕES DOS BOTÕES DA ABA CONTATO  //////////////////////////////////////////////
@@ -207,15 +237,15 @@ public class Main extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                    
+                    File file = new File("C:\\ZContatos\\");
+                    file.mkdir();              
                     Pessoa pessoa = new Pessoa(tNome.getText(), tEndereco.getText(), tTelefone.getText(), tEmail.getText(), tRG.getText());
                     contatos.addPessoa(pessoa);
                     modeloContatos.addElement(pessoa.toString());
                     cleanCamp(tNome); cleanCamp(tEndereco) ; cleanCamp(tTelefone); cleanCamp(tEmail); cleanCamp(tRG);
                 try {
-                    salvar.salvar("C:\\Users\\Admin\\Desktop\\negona.negoa", contatos.contatos);
-                    contatos.contatos = null;
-                    contatos.contatos = (ArrayList<Pessoa>) ler.deserializar("C:\\Users\\Admin\\Desktop\\negona.negoa");
+                    salvar.salvar("C:\\ZContatos\\contatos.zombies", contatos.contatos);
+                    contatos.contatos = (ArrayList<Pessoa>) ler.deserializar("C:\\ZContatos\\contatos.zombies");
                     
                 } catch (Exception ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -224,28 +254,7 @@ public class Main extends JFrame {
 
         });
         
-        bGravar.addActionListener(new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                    
-                    Pessoa pessoa = new Pessoa(tNome.getText(), tEndereco.getText(), tTelefone.getText(), tEmail.getText(), tRG.getText());
-                    contatos.addPessoa(pessoa);
-                    cleanCamp(tNome); cleanCamp(tEndereco) ; cleanCamp(tTelefone); cleanCamp(tEmail); cleanCamp(tRG);
-                try {
-                    salvar.salvar("C:\\Users\\Admin\\Desktop\\negona.negoa", contatos.contatos);
-                    contatos.contatos = null;
-                    contatos.contatos = (ArrayList<Pessoa>) ler.deserializar("C:\\Users\\Admin\\Desktop\\negona.negoa");
-                    modeloContatos.removeAllElements();
-                    for(Pessoa p: contatos.contatos) {
-                       modeloContatos.addElement(p.toString());
-                    }
-                } catch (Exception ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                }
-
-        });
         bAlterar.addActionListener(new ActionListener() {
 
             @Override
@@ -282,7 +291,7 @@ public class Main extends JFrame {
 	                        	p.setEmail(email);
 	                       
                                 try {
-                                    salvar.salvar("C:\\Users\\Admin\\Desktop\\negona.negoa", contatos.contatos);
+                                    salvar.salvar("C:\\ZContatos\\contatos.zombies", contatos.contatos);
                                     modeloContatos.setElementAt(p.toString(), selected);
                                     cleanCamp(tNome); cleanCamp(tEndereco) ; cleanCamp(tTelefone); cleanCamp(tEmail); cleanCamp(tRG);
                                 } catch (Exception ex) {
@@ -317,6 +326,7 @@ public class Main extends JFrame {
                                     contatos.removePessoa(p);
                                     JOptionPane.showMessageDialog(null, "Contato: " + p.getNome() + " Removido com sucesso ! !!");
                                     modeloContatos.remove(selected);
+                                    
                                 }  else {
                                     JOptionPane.showMessageDialog(null, "Contato não removido, e ação cancelada");
                                 }
@@ -324,6 +334,7 @@ public class Main extends JFrame {
                             }
 
         }}}});
+        
         
        //AÇÕES DOS BOTÕES DA ABA EVENTOS
 
@@ -339,13 +350,14 @@ public class Main extends JFrame {
                         agenda.addEvento(evento);
                         cleanCamp(eventoNome); cleanCamp(eventoEndereco) ; cleanCamp(eventoData); cleanCamp(eventoDescricao);
                         modeloEventos.addElement(evento.toString());
+                        salvar.salvar("C:\\ZContatos\\eventos.zombies", agenda.eventos);
+                        agenda.eventos = (ArrayList<Evento>) ler.deserializar("C:\\ZContatos\\eventos.zombies");
 
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "Insira a data com: dd/MM/yyyy");
                 }
 
-
-                }
+            }
 
         });
         
@@ -385,14 +397,17 @@ public class Main extends JFrame {
                             else
                                 try {
                                     z.toData(data);
+                                    salvar.salvar("C:\\ZContatos\\eventos.zombies", agenda.eventos);
+                                    agenda.eventos = (ArrayList<Evento>) ler.deserializar("C:\\ZContatos\\eventos.zombies");
                             } catch (Exception ex) {
                                 JOptionPane.showMessageDialog(null, "Digite a data corretamente!");
                             }
-                            
+
                             modeloEventos.setElementAt(e.toString(), selected);
                             cleanCamp(eventoNome); cleanCamp(eventoDescricao) ; cleanCamp(eventoEndereco); cleanCamp(eventoData);
                         }
                     }
+                    
                     
 
                 }
@@ -416,21 +431,38 @@ public class Main extends JFrame {
                                     agenda.removeEvento(z);
                                     JOptionPane.showMessageDialog(null, "Evento: " + z.getNome() + " Removido com sucesso ! !!");
                                     modeloEventos.remove(selected);
+                                    try {
+                                        salvar.salvar("C:\\ZContatos\\eventos.zombies", agenda.eventos);
+                                        agenda.eventos = (ArrayList<Evento>) ler.deserializar("C:\\ZContatos\\eventos.zombies");
+
+                                    }  catch (Exception ex) {
+                                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
                                 }  else {
                                     JOptionPane.showMessageDialog(null, "Evento não removido, e ação cancelada");
                                 }
                                     
                             }
 
-        }}}});
-
-
+        }
+                    
+       }}});
+        
+    
+    
     }
-    public void cleanCamp(JTextField camp){
+
+    
+    public void cleanCamp(JTextField camp){  //Para limpar campos
         camp.setText("");
     }
     
     public static void main (String args[]) throws ParseException{
-        new Main();
+        
+        try {
+            new Main();
+        } catch (Exception ex) {
+            JOptionPane.showConfirmDialog(null, "Erro ao abrir o programa, verifique o directorio C:\\ZContatos\\");
+        }
     }
 }
