@@ -20,8 +20,8 @@ public class Evento {
     private Date data;
     private String descricao;
     private String id;
-
     private String endereco;
+    
     Evento(String nome,String descricao, String endereco, String id){
         this.nome = nome;
         this.descricao = descricao;

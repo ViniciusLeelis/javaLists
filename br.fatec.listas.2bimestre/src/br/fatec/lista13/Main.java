@@ -5,12 +5,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.chart.PieChart;
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 
 public class Main extends JFrame {
 
@@ -22,8 +24,8 @@ public class Main extends JFrame {
     private JTextField tNome = new JTextField(20);
     private JTextField tEndereco = new JTextField(20);
     private JTextField tEmail = new JTextField(20);
-    private JTextField tTelefone = new JTextField(20);
-    private JTextField tRG = new JTextField(20);   
+    private JFormattedTextField tTelefone;
+    private JFormattedTextField tRG;   
     private JButton bGravar = new JButton("Gravar");
 
     
@@ -32,15 +34,12 @@ public class Main extends JFrame {
     // Tab Eventos
     private JButton eventoGravar = new JButton("Gravar");
     private JButton eventoAlterar = new JButton("Alterar");
-    private JButton eventoProcurar = new JButton("Procurar");
     private JButton eventoLimpar = new JButton("Limpar");
     private JButton eventoSair = new JButton("Sair");
-    private JButton eventoDeletar = new JButton("Deletar");
-    private JButton eventoSelecionarE = new JButton("<<");
-    private JButton eventoSelecionarD = new JButton(">>");    
+    private JButton eventoDeletar = new JButton("Deletar");   
     private JTextField eventoNome = new JTextField(20);
     private JTextField eventoDescricao = new JTextField(20);
-    private JTextField eventoData = new JTextField(20);
+    private JFormattedTextField eventoData;
     private JTextField eventoEndereco = new JTextField(20);
     private JLabel eventoTitulo = new JLabel("Eventos");
     private JLabel eventoLNome = new JLabel("Nome:");
@@ -52,11 +51,8 @@ public class Main extends JFrame {
     //Tab contatos
     private JButton bDeletar = new JButton("Deletar");
     private JButton bAlterar = new JButton("Alterar");
-    private JButton bProcurar = new JButton("Procurar");
     private JButton bLimpar = new JButton("Limpar");
     private JButton bSair = new JButton("Sair");
-    private JButton bSelecionaE = new JButton("<<");
-    private JButton bSelecionaD = new JButton(">>");
     private JLabel lTitulo = new JLabel("Contatos e Eventos SIMPLES");
     private JLabel lNome = new JLabel("Nome:");
     private JLabel lEndereco = new JLabel("Endereço:");
@@ -64,8 +60,11 @@ public class Main extends JFrame {
     private JLabel lTelefone = new JLabel("Telefone:");
     private JLabel lRG = new JLabel("RG:");
     
-    public Main(){
+    public Main() throws ParseException{
         super ("Contatos e Eventos for Zombies");
+        eventoData = new JFormattedTextField(new MaskFormatter("##/##/####"));
+        tTelefone = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
+        tRG = new JFormattedTextField(new MaskFormatter("##.###.###-#"));
         JPanel addContato = new JPanel(null);
         JPanel addEvento = new JPanel(null);
         JTabbedPane jTab = new JTabbedPane();
@@ -97,9 +96,6 @@ public class Main extends JFrame {
         addContato.add(bGravar);
         addContato.add(bDeletar);
         addContato.add(bAlterar);
-        addContato.add(bSelecionaE);
-        addContato.add(bProcurar);
-        addContato.add(bSelecionaD);
         addContato.add(bLimpar);
         addContato.add(bSair);
         addContato.add(scrollContatos);
@@ -121,9 +117,6 @@ public class Main extends JFrame {
         addEvento.add(eventoGravar);
         addEvento.add(eventoDeletar);
         addEvento.add(eventoAlterar);
-        addEvento.add(eventoSelecionarE);
-        addEvento.add(eventoSelecionarD);
-        addEvento.add(eventoProcurar);
         addEvento.add(eventoLimpar);
         addEvento.add(eventoSair);
         addEvento.add(scrollEventos);
@@ -148,18 +141,21 @@ public class Main extends JFrame {
         lTelefone.setBounds(20, 280, 100, 25);
         lTelefone.setForeground(Color.BLACK);
         tTelefone.setBounds(90, 280, 350, 25);
+        tTelefone.setValue(null);
+        tTelefone.setColumns(6);
+        
+
         lRG.setBounds(20, 330, 100, 25);
         lRG.setForeground(Color.BLACK);
         tRG.setBounds(90, 330, 350, 25);
+        tRG.setColumns(6);
+        tRG.setValue(null);
         bGravar.setBounds(60, 370, 100, 23);
         bGravar.setBackground(new Color(155,201,149));
         bDeletar.setBounds(200, 370, 100, 23);
         bDeletar.setBackground(new Color(203,133,137));
         bAlterar.setBounds(340, 370, 100, 23);
         bAlterar.setBackground(new Color(255,191,105));
-        bSelecionaE.setBounds(60, 420, 100, 23);
-        bProcurar.setBounds(200, 420, 100, 23);
-        bSelecionaD.setBounds(340, 420, 100, 23);
         bLimpar.setBounds(200, 510, 100, 23);
         bSair.setBounds(340, 510, 100, 23);
         scrollContatos.setBounds(540, 90, 400, 400);
@@ -177,7 +173,9 @@ public class Main extends JFrame {
         eventoEndereco.setBounds(90, 180, 350, 25);
         eventoLData.setBounds(45, 230, 100, 25);
         eventoLData.setForeground(Color.BLACK);
-        eventoData.setBounds(90, 230, 350, 25);        
+        eventoData.setBounds(90, 230, 350, 25);       
+        eventoData.setValue(null);
+	eventoData.setColumns(6);
         eventoLDescricao.setBounds(20, 280, 100, 25);
         eventoLDescricao.setForeground(Color.BLACK);
         eventoDescricao.setBounds(90, 280, 350, 25);
@@ -187,30 +185,24 @@ public class Main extends JFrame {
         eventoDeletar.setBackground(new Color(203,133,137));
         eventoAlterar.setBounds(340, 370, 100, 23);
         eventoAlterar.setBackground(new Color(255,191,105));
-        eventoSelecionarE.setBounds(60, 420, 100, 23);
-        eventoProcurar.setBounds(200, 420, 100, 23);
-        eventoSelecionarD.setBounds(340, 420, 100, 23);
         eventoLimpar.setBounds(200, 510, 100, 23);
         eventoSair.setBounds(340, 510, 100, 23);
         scrollEventos.setBounds(540,90,400,400);
-        
-        
-        
-        
-        
         
         setSize(1000, 600);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        
 
-        //AÇÕES DOS BOTÕES DA ABA CONTATO
+
+        //AÇÕES DOS BOTÕES DA ABA CONTATO  //////////////////////////////////////////////
 
         bGravar.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                    
                     Pessoa pessoa = new Pessoa(tNome.getText(), tEndereco.getText(), tTelefone.getText(), tEmail.getText(), tRG.getText());
                     contatos.addPessoa(pessoa);
                     modeloContatos.addElement(pessoa.toString());
@@ -223,26 +215,46 @@ public class Main extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                String pesquisa = JOptionPane.showInputDialog(null, "Digite o RG do contato");
-                for(Pessoa p: contatos.contatos) {
-                    if(p.getRG().equals(pesquisa)){
-                        String nome = JOptionPane.showInputDialog(null, "Digite o novo nome: ");
-                        p.setNome(nome);
-                        String endereco = JOptionPane.showInputDialog(null, "Digite o novo endereco: ");
-                        p.setEndereco(endereco);
-                        String telefone = JOptionPane.showInputDialog(null, "Digite o novo telefone: ");
-                        p.setTelefone(telefone);
-                        String email = JOptionPane.showInputDialog(null, "Digite o novo email: "); 
-                        p.setEmail(email);
-                        cleanCamp(tNome); cleanCamp(tEndereco) ; cleanCamp(tTelefone); cleanCamp(tEmail); cleanCamp(tRG);
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(null, "nenhum usuário encontrado");
-                    }
+                int selected = listaContatos.getSelectedIndex();
+                Object obj = modeloContatos.getElementAt(selected);
+                if(selected == -1){
+                	JOptionPane.showMessageDialog(null, "Selecione um contato ao lado");
+                } else {
+	                for(Pessoa p: contatos.contatos) {
+	                    if(p.toString().equals(obj.toString())){
+	                    	
+	                        String nome = JOptionPane.showInputDialog(null, "Digite o novo nome: ");
+	                        if(nome.trim().equals(""))
+	                        	p.setNome(p.getNome());
+	                        else
+	                        	p.setNome(nome);
+	                      
+	                        String endereco = JOptionPane.showInputDialog(null, "Digite o novo endereco: ");
+	                        if(endereco.trim().equals(""))
+	                        	p.setNome(p.getNome());
+	                        else
+	                        	p.setEndereco(endereco);
+	                        String telefone = JOptionPane.showInputDialog(null, "Digite o novo telefone: ");
+	                        if(telefone.trim().equals(""))
+	                        	p.setTelefone(p.gettelefone());
+	                        else
+	                        	p.setTelefone(telefone);
+        
+	                        String email = JOptionPane.showInputDialog(null, "Digite o novo email: "); 
+	                        if(email.trim().equals(""))
+	                        	p.setEmail(p.getEmail());
+	                        else
+	                        	p.setEmail(email);
+	                        modeloContatos.setElementAt(p.toString(), selected);
+	                        cleanCamp(tNome); cleanCamp(tEndereco) ; cleanCamp(tTelefone); cleanCamp(tEmail); cleanCamp(tRG);
+	                    }
+                       
+                    
                 }
                     
 
                 }
+            	}
 
         });
         
@@ -250,20 +262,25 @@ public class Main extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                    String rg = JOptionPane.showInputDialog("Digite o RG");
-                    for(Pessoa pessoa: contatos.contatos) {
-                        if(rg.equals(pessoa.getRG())) {
-                            JOptionPane.showMessageDialog(null, "Contato: " + pessoa.getNome() + " removido !");
-                            contatos.contatos.remove(pessoa);
-                        }
-                        else {
-                            JOptionPane.showMessageDialog(null, "RG não encontrado");
-                            
-                    }}
-                    
-                }
+                int selected = listaContatos.getSelectedIndex();
+                Object obj = modeloContatos.getElementAt(selected);
+                if(selected == -1){
+                	JOptionPane.showMessageDialog(null, "Selecione um contato ao lado");
+                } else {
+	                for(Pessoa p: contatos.contatos) {
+	                    if(p.toString().equals(obj.toString())) {
+                                String escolha = JOptionPane.showInputDialog(null, "Deseja remover? S/N");
+                                if(escolha.toUpperCase().equals("S")) {
+                                    contatos.removePessoa(p);
+                                    JOptionPane.showMessageDialog(null, "Contato: " + p.getNome() + " Removido com sucesso ! !!");
+                                    modeloContatos.remove(selected);
+                                }  else {
+                                    JOptionPane.showMessageDialog(null, "Contato não removido, e ação cancelada");
+                                }
+                                    
+                            }
 
-        });
+        }}}});
         
        //AÇÕES DOS BOTÕES DA ABA EVENTOS
 
@@ -272,7 +289,7 @@ public class Main extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                     
-                    Evento evento = new Evento(eventoNome.getText(), eventoDescricao.getText(), eventoEndereco.getText(), (contatos.contatos.size() + 1));
+                    Evento evento = new Evento(eventoNome.getText(), eventoDescricao.getText(), eventoEndereco.getText(), eventoNome.getText());
 
                     try {
                         evento.toData(eventoData.getText());
@@ -293,59 +310,84 @@ public class Main extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                String pesquisa = JOptionPane.showInputDialog(null, "Digite o ID do evento:");
-                
-                for(Evento e: agenda.eventos) {
-                    if(e.getId().equals(pesquisa)){
-                        String nome = JOptionPane.showInputDialog(null, "Digite o novo nome: ");
-                        e.setNome(nome);
-                        String endereco = JOptionPane.showInputDialog(null, "Digite a nova Descrição: ");
-                        e.setDescricao(endereco);
-                        String telefone = JOptionPane.showInputDialog(null, "Digite o novo telefone: ");
-                        e.setEndereco(telefone);
-                        String email = JOptionPane.showInputDialog(null, "Digite o novo email: "); 
-
-                        cleanCamp(tNome); cleanCamp(tEndereco) ; cleanCamp(tTelefone); cleanCamp(tEmail); cleanCamp(tRG);
+                int selected = listaEventos.getSelectedIndex();
+                Object obj = modeloEventos.getElementAt(selected);
+                if(selected == -1){
+                	JOptionPane.showMessageDialog(null, "Selecione um evento ao lado");
+                } else {
+                    for (Evento z:agenda.eventos) {
+                        if(z.toString().equals(obj.toString())){
+                            
+                            String nome = JOptionPane.showInputDialog(null, "Digite o novo nome: ");
+                            if(nome.trim().equals(""))
+                                z.setNome(z.getNome());
+                            else
+                                z.setNome(nome);
+                            
+                            String descricao = JOptionPane.showInputDialog(null, "Digite a nova Descrição: ");
+                            if(descricao.trim().equals(""))
+                                z.setDescricao(z.getDescricao());
+                            else
+                                z.setDescricao(descricao);
+                            
+                            String endereco = JOptionPane.showInputDialog(null, "Digite o novo endereço: ");
+                            if(endereco.trim().equals(""))
+                                z.setEndereco(z.getEndereco());
+                            else
+                                z.setEndereco(endereco);
+                            
+                            String data = JOptionPane.showInputDialog(null, "Digite a nova data: (01/01/2001)");
+                            if(data.trim().equals(""))
+                                z.setData(z.getData());
+                            else
+                                try {
+                                    z.toData(data);
+                            } catch (Exception ex) {
+                                JOptionPane.showMessageDialog(null, "Digite a data corretamente!");
+                            }
+                            
+                            modeloEventos.setElementAt(e.toString(), selected);
+                            cleanCamp(eventoNome); cleanCamp(eventoDescricao) ; cleanCamp(eventoEndereco); cleanCamp(eventoData);
+                        }
                     }
-                    else {
-                        JOptionPane.showMessageDialog(null, "nenhum usuário encontrado");
-                    }
-                }
                     
 
                 }
+            	}
 
         });
         
-        bDeletar.addActionListener(new ActionListener() {
+        eventoDeletar.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                    String rg = JOptionPane.showInputDialog("Digite o ID");
-                    for(Pessoa pessoa: contatos.contatos) {
-                        if(rg.equals(pessoa.getRG())) {
-                            JOptionPane.showMessageDialog(null, "Contato: " + pessoa.getNome() + " removido !");
-                            contatos.contatos.remove(pessoa);
-                        }
-                        else {
-                            JOptionPane.showMessageDialog(null, "RG não encontrado");
-                            
-                    }}
-                    
-                }
+                int selected = listaContatos.getSelectedIndex();
+                Object obj = modeloContatos.getElementAt(selected);
+                if(selected == -1){
+                	JOptionPane.showMessageDialog(null, "Selecione um evento ao lado");
+                } else {
+	                for(Evento z: agenda.eventos) {
+	                    if(z.toString().equals(obj.toString())) {
+                                String escolha = JOptionPane.showInputDialog(null, "Deseja remover? S/N");
+                                if(escolha.toUpperCase().equals("S")) {
+                                    agenda.removeEvento(z);
+                                    JOptionPane.showMessageDialog(null, "Evento: " + z.getNome() + " Removido com sucesso ! !!");
+                                    modeloEventos.remove(selected);
+                                }  else {
+                                    JOptionPane.showMessageDialog(null, "Evento não removido, e ação cancelada");
+                                }
+                                    
+                            }
 
-        });
+        }}}});
 
 
     }
     public void cleanCamp(JTextField camp){
         camp.setText("");
     }
-    
 
-    
-
-    public static void main (String args[]){
+    public static void main (String args[]) throws ParseException{
         new Main();
     }
 }

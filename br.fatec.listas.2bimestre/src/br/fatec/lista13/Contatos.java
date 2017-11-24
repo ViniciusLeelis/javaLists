@@ -14,20 +14,22 @@ import javax.swing.DefaultListModel;
  */
 public class Contatos {
     ArrayList<Pessoa> contatos;
-    private String formString;
+
     Contatos(){
         contatos = new ArrayList<>();
     }
     public void addPessoa(Pessoa pessoa) {
         contatos.add(pessoa);
     }
-    public void removePessoa(String RG){
-        for(Pessoa p:contatos){
-            if(p.getRG().equals(RG)){
-                contatos.remove(p);
-            }
+    public void removePessoa(Pessoa p){
+        contatos.remove(p);
+            
         }        
-    }
+    
+	public Pessoa getPessoa(Pessoa pessoa) {
+		return pessoa;
+	
+	}
 
     }
 

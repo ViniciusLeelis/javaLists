@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author Admin
  */
 public class Agenda {
-    ArrayList<Evento> eventos;
+    public ArrayList<Evento> eventos;
     
     Agenda() {
         eventos = new ArrayList<>();
@@ -20,19 +20,10 @@ public class Agenda {
     public void addEvento(Evento evento) {
         eventos.add(evento);
     }
-    public void removeEvento(String nome){
-        for(Evento e:eventos){
-            if(e.getNome().equals(nome)){
-                eventos.remove(e);
-            }
-        }        
+    public void removeEvento(Evento e){
+       eventos.remove(e);               
     }
-    @Override
-    public String toString() {
-        String finals = "";
-        for(Evento evento: eventos){
-            finals += "Nome: " + evento.getNome() + " Data: " + evento.getData() + "\n";
-        }
-        return finals + "\n";
+    public ArrayList getLista(){
+        return eventos;
     }
 }
