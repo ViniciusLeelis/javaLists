@@ -129,7 +129,6 @@ public class Main extends JFrame {
         addContato.add(bGravar);
         addContato.add(bDeletar);
         addContato.add(bAlterar);
-        addContato.add(bLimpar);
         addContato.add(bSair);
         addContato.add(scrollContatos);
         addContato.setBackground(Color.WHITE);
@@ -150,7 +149,7 @@ public class Main extends JFrame {
         addEvento.add(eventoGravar);
         addEvento.add(eventoDeletar);
         addEvento.add(eventoAlterar);
-        addEvento.add(eventoLimpar);
+
         addEvento.add(eventoSair);
         addEvento.add(scrollEventos);
         addEvento.setBackground(Color.WHITE);      
@@ -190,7 +189,6 @@ public class Main extends JFrame {
         bDeletar.setBackground(new Color(203,133,137));
         bAlterar.setBounds(340, 370, 100, 23);
         bAlterar.setBackground(new Color(255,191,105));
-        bLimpar.setBounds(200, 510, 100, 23);
         bSair.setBounds(340, 510, 100, 23);
         scrollContatos.setBounds(540, 90, 400, 400);
         // // // // // / / / / / / / / / / / / /
@@ -219,7 +217,6 @@ public class Main extends JFrame {
         eventoDeletar.setBackground(new Color(203,133,137));
         eventoAlterar.setBounds(340, 370, 100, 23);
         eventoAlterar.setBackground(new Color(255,191,105));
-        eventoLimpar.setBounds(200, 510, 100, 23);
         eventoSair.setBounds(340, 510, 100, 23);
         scrollEventos.setBounds(540,90,400,400);
         
@@ -335,6 +332,14 @@ public class Main extends JFrame {
 
         }}}});
         
+        bSair.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 System.exit(0);
+                }
+            });
+        
         
        //AÇÕES DOS BOTÕES DA ABA EVENTOS
 
@@ -447,6 +452,13 @@ public class Main extends JFrame {
         }
                     
        }}});
+       eventoSair.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 System.exit(0);
+                }
+            });
         
     
     
