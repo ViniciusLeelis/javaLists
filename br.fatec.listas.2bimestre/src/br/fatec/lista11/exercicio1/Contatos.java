@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author Vinicius Lelis
  */
-public class Contatos implements Serializable, Comparable<Pessoa> {
+public class Contatos implements Serializable {
     Salvar salvar;
     Ler ler;
     private Set contatos;
@@ -53,17 +53,7 @@ public class Contatos implements Serializable, Comparable<Pessoa> {
     public Object getContatos(){
         
         return ler.getContatos();
-}
-
-    @Override
-    public int compareTo(Pessoa o) {
-        return o.nome.compareTo(o.getNome());
-       
-    }
-
-
-
-    
+}   
 
     }
 

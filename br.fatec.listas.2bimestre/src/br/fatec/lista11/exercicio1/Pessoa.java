@@ -11,7 +11,7 @@ import br.fatec.lista10.exercicio1.*;
  *
  * @author Vinicius Lelis
  */
-public class Pessoa {
+public class Pessoa implements Comparable<Pessoa>{
     String nome;
     String email;
     String telefone;
@@ -22,6 +22,11 @@ public class Pessoa {
     }
     public String getNome(){
         return nome;
+    }
+
+    @Override
+    public int compareTo(Pessoa o) {
+        return nome.compareTo(o.getNome());
     }
    
 }
