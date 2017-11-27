@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.fatec.lista10.exercicio1;
 
 import javax.swing.JOptionPane;
 import br.fatec.lista10.exercicio1.Contatos;
 /**
- *
- * @author Admin
+ * Professor Gerson, fiquei totalmente perdido nesse exercício da lista, estão incompletos: Esse exercício, e o exercicio 2 da lista 11
+ * 
  */
 public class Main {
         Contatos contatos = new Contatos();
@@ -51,7 +47,7 @@ public class Main {
         contatos.addPessoa(pessoa);
     }
     private void mostrarContatos(){
-        String total = "";
+        /// ??????
 
     }
     private void excluirContato() {

@@ -28,43 +28,58 @@ import javax.swing.JOptionPane;
  * @author Admin
  */
 public class Main {
-    private List inteiros = new ArrayList<>();
- 
+
+	private List valores = new ArrayList<>();
+	private List parte1 = new ArrayList<>();
+	private List parte2 = new ArrayList<>();
+        private List inteiros = new ArrayList<>();
+        private int somaParte1 = 0;
+	private int somaParte2 = 0;
+    
         public static void main(String[] args) {
           new Main();
     }
-        Main() {
-            /*String vetor = JOptionPane.showInputDialog(null, "Digite o vetor desejado, separando por uma vírgula");
-            for(String letra:vetor.split(",")){
-                inteiros.add(letra);
-            }
-            int valorDoMeio = (int) inteiros.get((inteiros.size()/2)+1); */
-                    int notas[] = {15,63,23,99,58,52,98};
+        
+    Main() {
+    	String vetor = JOptionPane.showInputDialog(null, "Digite o vetor separado por ,");
+    	for(String letra:vetor.split(",")) {
+    		inteiros.add(Integer.parseInt(letra));
+    		System.out.println(inteiros);
+    	}
+    	verificar(inteiros);
+    	
+    }
+    
+    
+	public void verificar(List lista) {
+		
+			
+		int totalSize = inteiros.size();
+		int totalPrimeiroSize = lista.size()/2;
+		int temporario = 0;
+	
+		
+		System.out.println(totalPrimeiroSize);
+		for(int i = 0; i<=totalPrimeiroSize; i++) {
+			parte1.add(lista.get(i));
+			
+		}
+		for(int i = totalPrimeiroSize; i<=lista.size(); i++) {
+			parte2.add(lista.get(i));
+		}
+		
+		
+		
+		System.out.println("Parte 1:" + parte1 + "Soma total: ");
+		System.out.println("Parte 2:" + parte2 + "Soma total: ");
+		System.out.println("Lista total: " + lista);
+		
+	}
+	
+	
+	
 
-        /*****************************************************
-         *            ENCONTRANDO O VALOR DO MEIO 
-         *****************************************************/
-
-        int valorDoMeio = notas[(notas.length/2)+1]; //O mais um é por que ele vai arredondar pra baixo;
-
-
-
-        /*****************************************************
-         *            ENCONTRANDO O VALOR MEDIANO 
-         *****************************************************/
-
-        // O ideal é iniciar os contadores com o primeiro valor, aí vamos modificando de acordo com a necessidade
-        int menor = notas[0];
-        int maior = notas[0];
-
-
-        for(int i =0; i < notas.length; i++){
-            if(notas[i] < menor)
-                menor = notas[i];
-
-            if(notas[i] > maior)
-                maior = notas[i];
-        }
-        int valorMediano = (maior + menor) /2;
-        }
+    
+    
+    
 }

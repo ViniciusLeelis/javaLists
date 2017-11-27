@@ -12,13 +12,16 @@ import br.fatec.lista10.exercicio1.*;
  * @author Vinicius Lelis
  */
 public class Pessoa {
-    private String nome;
-    private String email;
-    private String telefone;
+    String nome;
+    String email;
+    String telefone;
     Pessoa(String nome, String email, String telefone) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
+    }
+    public String getNome(){
+        return nome;
     }
    
 }

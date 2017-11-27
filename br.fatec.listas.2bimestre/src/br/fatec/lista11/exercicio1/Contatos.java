@@ -14,21 +14,25 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Vector;
+import java.util.function.Predicate;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Vinicius Lelis
  */
-public class Contatos<T> implements Serializable, Comparable {
+public class Contatos implements Serializable, Comparable<Pessoa> {
     Salvar salvar;
     Ler ler;
-    private Set<T> contatos;
+    private Set contatos;
+        
+
     private int currentPosition;
     private int collectionSize;
     // gets e sets omitidos.
 
-    public Contatos(Set<T> contatos) {
+    public Contatos(Set contatos) {
         this.contatos = contatos;
         this.collectionSize = contatos.size();
         this.currentPosition = 0;
@@ -36,7 +40,7 @@ public class Contatos<T> implements Serializable, Comparable {
     public Contatos() { 
     }
     public void addPessoa(Object objeto){
-        contatos.add((T) objeto);
+        contatos.add(objeto);
     }
     public void excluirPessoa(Pessoa pessoa){
 
@@ -51,10 +55,15 @@ public class Contatos<T> implements Serializable, Comparable {
         return ler.getContatos();
 }
 
-   
-    public interface Comparable {
-        int compareTo(<T>);
+    @Override
+    public int compareTo(Pessoa o) {
+        return o.nome.compareTo(o.getNome());
+       
     }
+
+
+
+    
 
     }
 
