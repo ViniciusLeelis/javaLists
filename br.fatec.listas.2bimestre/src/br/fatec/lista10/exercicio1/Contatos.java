@@ -35,18 +35,22 @@ public class Contatos<T> implements Serializable {
     public void addPessoa(T objeto){
         contatos.add(objeto);
     }
+    
     public void excluirPessoa(T pessoa){
        for(T objeto: contatos){
            if(pessoa.toString().equals(objeto))
                 contatos.remove(pessoa);
            else
-             JOptionPane.showMessageDialog(null, "Não foi encontrado");
+             JOptionPane.showMessageDialog(null, "Não foi encontrado!!");
+           
        }
 
     }
+    
     public void salvarContatos(){
         salvar.setSalvar(contatos);
     }
+    
     public Object getContatos(){
         return ler.getContatos();
 }
