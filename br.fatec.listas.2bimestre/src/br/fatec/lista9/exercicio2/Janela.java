@@ -52,13 +52,13 @@ public class Janela extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if(e.getSource().equals(j1)) {
-            contador =  Double.parseDouble(t1.getText()) + Double.parseDouble(t2.getText());
+            contador =  calcular.somar(Double.parseDouble(t1.getText()), Double.parseDouble(t2.getText()));
         } else if(e.getSource().equals(j2)) {
-            contador =  Double.parseDouble(t1.getText()) - Double.parseDouble(t2.getText());
+            contador =  calcular.subtrair(Double.parseDouble(t1.getText()), Double.parseDouble(t2.getText()));
         } else if(e.getSource().equals(j3)) {
-            contador =  Double.parseDouble(t1.getText()) * Double.parseDouble(t2.getText());
+            contador =  calcular.multiplicacao(Double.parseDouble(t1.getText()),Double.parseDouble(t2.getText()));
         } else if(e.getSource().equals(j4)) {
-            contador =  Double.parseDouble(t1.getText()) / Double.parseDouble(t2.getText());            
+            contador =  calcular.dividir(Double.parseDouble(t1.getText()),Double.parseDouble(t2.getText()));            
         }
         lContador.setText("" + contador);
     }
