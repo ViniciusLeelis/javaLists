@@ -29,5 +29,9 @@ public class Pessoa implements Comparable<Pessoa> {
     public int compareTo(Pessoa o) {
          return nome.compareTo(o.getNome());
     }
+    @Override
+    public String toString() {
+        return "Nome: " + nome + " email: " + email + " telefone: " + telefone;
+    }
    
 }

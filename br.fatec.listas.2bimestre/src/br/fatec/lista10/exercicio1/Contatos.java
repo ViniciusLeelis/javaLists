@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class Contatos<T> implements Serializable {
     Salvar salvar;
     Ler ler;
-    private List<T> contatos;
+    protected List<T> contatos;
     private int currentPosition;
     private int collectionSize;
     // gets e sets omitidos.
@@ -32,12 +32,17 @@ public class Contatos<T> implements Serializable {
     }
     public Contatos() { 
     }
-    public void addPessoa(Object objeto){
-        contatos.add((T) objeto);
+    public void addPessoa(T objeto){
+        contatos.add(objeto);
     }
-    public void excluirPessoa(Pessoa pessoa){
+    public void excluirPessoa(T pessoa){
+       for(T objeto: contatos){
+           if(pessoa.toString().equals(objeto))
+                contatos.remove(pessoa);
+           else
+             JOptionPane.showMessageDialog(null, "Não foi encontrado");
+       }
 
-       contatos.remove(pessoa);
     }
     public void salvarContatos(){
         salvar.setSalvar(contatos);
@@ -45,6 +50,12 @@ public class Contatos<T> implements Serializable {
     public Object getContatos(){
         return ler.getContatos();
 }
-
+    public String returnPessoa() {
+        String todas = "";
+        for(T objeto:contatos){
+            todas = todas + "\n" +  objeto.toString();
+        }
+        return todas;
+    }
     }
 

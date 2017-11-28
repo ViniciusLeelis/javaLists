@@ -27,13 +27,9 @@ public class Main {
                     carregarAgenda();
                     break;
 
-            case 3:
-                    excluirContato();
-                    salvarAgenda();
-                    break;
 
             default:
-                opcao = JOptionPane.showInputDialog(null, "Digite a opção desejada: \n (1) Add Contato \n (2) Mostrar contatos (3) Excluir Contato");
+                opcao = JOptionPane.showInputDialog(null, "Digite a opção desejada: \n (1) Add Contato \n (2) Mostrar contatos");
                 option = Integer.parseInt(opcao);
         }
             }
@@ -47,12 +43,10 @@ public class Main {
         contatos.addPessoa(pessoa);
     }
     private void mostrarContatos(){
-        /// ??????
-
-    }
-    private void excluirContato() {
-      
-    }
+        contatos.returnPessoa();
+            
+        }
+    
     private void carregarAgenda(){
        contatos.getContatos();
     }
