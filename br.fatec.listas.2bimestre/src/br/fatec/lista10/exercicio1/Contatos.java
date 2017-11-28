@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class Contatos<T> implements Serializable {
     Salvar salvar;
     Ler ler;
-    protected List<T> contatos;
+    public List<T> contatos;
     private int currentPosition;
     private int collectionSize;
     // gets e sets omitidos.

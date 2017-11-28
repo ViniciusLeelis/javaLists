@@ -13,7 +13,7 @@ import br.fatec.lista10.exercicio1.Contatos;
  * @author Admin
  */
 public class Main {
-        Contatos contatos = new Contatos();
+        ContatosSet contatos = new ContatosSet();
         public static void main(String[] args) {
           new Main();
     }
@@ -50,13 +50,25 @@ public class Main {
         String telefone = JOptionPane.showInputDialog(null, "Digite o telefone: ");
         pessoa = new Pessoa(nome, email, telefone);
         contatos.addPessoa(pessoa);
+        salvarAgenda();
     }
     private void mostrarContatos(){
-        String total = "";
+        carregarAgenda();
+        for(Object obj: contatos.contatos) {
+            System.out.println(contatos.toString());
+    }
 
     }
     private void excluirContato() {
-      
+      String contact = JOptionPane.showInputDialog(null, "Digite o nome do contato");
+      for(Object x: contatos.contatos) {
+          if(x.toString().equals(contact)){
+              contatos.contatos.remove(x);
+          }
+          else
+              JOptionPane.showMessageDialog(null, "Nada foi encontrado :C");
+      }
+      salvarAgenda();
     }
     private void carregarAgenda(){
        contatos.getContatos();

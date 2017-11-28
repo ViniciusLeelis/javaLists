@@ -22,36 +22,33 @@ import javax.swing.JOptionPane;
  *
  * @author Vinicius Lelis
  */
-public class Contatos implements Serializable {
+public class ContatosSet implements Serializable {
     Salvar salvar;
     Ler ler;
-    private Set contatos;
+    protected Set contatos;
         
 
     private int currentPosition;
     private int collectionSize;
     // gets e sets omitidos.
 
-    public Contatos(Set contatos) {
+    public ContatosSet(Set contatos) {
         this.contatos = contatos;
         this.collectionSize = contatos.size();
         this.currentPosition = 0;
     }
-    public Contatos() { 
+    public ContatosSet() { 
     }
     public void addPessoa(Object objeto){
         contatos.add(objeto);
     }
     public void excluirPessoa(Pessoa pessoa){
-
-       contatos.remove(pessoa);
+        contatos.remove(pessoa);
     }
     public void salvarContatos(){
-        
         salvar.setSalvar(contatos);
     }
     public Object getContatos(){
-        
         return ler.getContatos();
 }   
 
