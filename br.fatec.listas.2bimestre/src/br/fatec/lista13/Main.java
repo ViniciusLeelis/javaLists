@@ -424,8 +424,8 @@ public class Main extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                int selected = listaContatos.getSelectedIndex();
-                Object obj = modeloContatos.getElementAt(selected);
+                int selected = listaEventos.getSelectedIndex();
+                Object obj = modeloEventos.getElementAt(selected);
                 if(selected == -1){
                 	JOptionPane.showMessageDialog(null, "Selecione um evento ao lado");
                 } else {
